@@ -235,6 +235,7 @@ elif options == "Text Analysis":
         st.pyplot(fig)
     
     # Word cloud for 'Connector error' if available
+    st.write("### Most common Connector error")
     if 'Connector error' in gaia_data.columns:
         text_data = ' '.join(gaia_data['Connector error'].dropna())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text_data)
