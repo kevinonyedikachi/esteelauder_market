@@ -11,7 +11,8 @@ from datetime import datetime
 st.title("Data Analysis and Visualization Dashboard")
 
 # Load the dataset
-gaia_data = pd.read_excel('data/gaia_data.xlsx')  # Ensure correct file path
+gaia_data = pd.read_excel('dashboard/data/gaia_data.xlsx')
+
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
@@ -187,7 +188,7 @@ elif options == "Retailer Performance":
     if 'Retailer' in gaia_data.columns:
         retailer_performance = gaia_data.groupby('Retailer').agg(
             Total=('GTIN', 'count'),
-            Errors=('Connector error', 'count')  # Assuming non-null Equadis errors are counted
+            Errors=('Connector error', 'count')  # Assuming non-null Connector errors are counted
         )
 
         # Calculate SuccessRate and ErrorRate
@@ -212,7 +213,7 @@ elif options == "Text Analysis":
     st.title("Text Analysis")
     
     # Word Cloud for most common words
-    st.write("### Word Cloud for most common words")
+    st.write("### Most common product names")
     
     # Word cloud for 'Product Name' if available
     if 'Product Name' in gaia_data.columns:
@@ -224,6 +225,7 @@ elif options == "Text Analysis":
         st.pyplot(fig)
     
     # Word cloud for 'Equadis error' if available
+    st.write("### Most common Equadis error")
     if 'Equadis error' in gaia_data.columns:
         text_data = ' '.join(gaia_data['Equadis error'].dropna())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text_data)
